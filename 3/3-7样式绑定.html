@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<title>样式绑定</title>
+	<style type="text/css">
+		.activated{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div @click="handleDivClick"
+		:class="{activated: isActivated}"
+		>hello</div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	//生命周期函数就是vue实例在某一个时间点自动执行的函数
+	//push pop shift unshift splice sort reverse
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			isActivated: false
+		},
+		methods:{
+			handleDivClick: function () {
+				this.isActivated = !this.isActivated;
+			}
+		}
+	})
+
+</script>

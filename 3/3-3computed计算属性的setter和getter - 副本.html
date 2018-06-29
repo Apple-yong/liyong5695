@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<title>computed计算属性的setter和getter</title>
+</head>
+<body>
+	<div id="app">{{fullName}}</div>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: {
+				firstName: "Dell",
+				lastName: "Lee"
+			},
+			computed: {
+					fullName: {//依赖的值发生变化就会重新计算
+						get: function () {
+							return this.firstName + " " + this.lastName
+						},
+						set: function (value) {
+							var arr = value.split(" ");
+							this.firstName  = arr[0];
+							this.lastName = arr[1];
+						}
+
+				}
+			}
+		})
+	</script>
+</body>
+</html>
