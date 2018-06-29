@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<title>计算属性，方法，侦听器</title>
+</head>
+<body>
+	<div id="app">
+		<div>{{ fullName() }}</div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	//生命周期函数就是vue实例在某一个时间点自动执行的函数
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			firstName: "Dell",
+			lastName: "Lee"
+		},
+		//侦听
+		watch: {
+			firstName: function () {
+				console.log("计算了一次");
+				this.fullName = this.firstName + " " + this.lastName;
+			},
+			lastName: function () {
+				console.log("计算了一次");
+				this.fullName = this.firstName + " " + this.lastName;
+			}
+		}
+		//方法
+		// methods: {
+		// 	fullName: function () {
+		//  		return this.firstName + " " + this.lastName
+		//  	}
+		// }
+		//计算属性，会有缓存，推荐使用
+		//  computed: {
+		// 	fullName: function () {
+		// 		return this.firstName + " " + this.lastName
+		// 	}
+		// }
+	})
+
+</script>

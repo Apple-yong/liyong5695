@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<title>模板语法</title>
+</head>
+<body>
+	<div id="app">
+		<h2 v-text="message"></h2>
+		<div v-html="message"></div>
+		<input v-model="message">
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	//生命周期函数就是vue实例在某一个时间点自动执行的函数
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			message: "<h1>hello</h1>"
+		}
+	})
+
+</script>
