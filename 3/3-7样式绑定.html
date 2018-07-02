@@ -16,6 +16,10 @@
 		<div @click="handleDivClick"
 		:class="{activated: isActivated}"
 		>hello</div>
+
+		<div :style="styleObj" @click="handleDivClick2">hello</div>
+
+		<div :style="[styleObj, {fontSize: '30px'}]" @click="handleDivClick2">hello</div>
 	</div>
 
 </body>
@@ -26,11 +30,17 @@
 	var vm = new Vue({
 		el: "#app",
 		data: {
-			isActivated: false
+			isActivated: false,
+			styleObj: {
+				color: "black"
+			}
 		},
 		methods:{
 			handleDivClick: function () {
 				this.isActivated = !this.isActivated;
+			},
+			handleDivClick2: function () {
+				this.styleObj.color = this.styleObj.color === "black" ? "red" :"black";
 			}
 		}
 	})

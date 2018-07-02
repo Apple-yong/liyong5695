@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<title>Vue组件使用细节</title>
+</head>
+<body>
+	<div id="app">
+		
+
+		<counter ref="one" @change="handleChange"></counter>
+		<counter ref="two" @change="handleChange"></counter>
+		<div>{{total}}</div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	Vue.component('counter',{
+		template: '<div @click="handleClick">{{number}}</div>',
+		data: function () {
+			return {
+				number: 0
+			}
+		},
+		methods: {
+			handleClick: function () {
+				this.number ++
+				this.$emit('change')
+			}
+		}
+	})
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			total: 0
+		},
+		methods: {
+			handleChange: function () {
+				this.total=this.$refs.one.number+this.$refs.two.number//ref为了获取相应的值
+			}
+		}
+	})
+</script>
