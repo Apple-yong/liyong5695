@@ -4,44 +4,33 @@
 	<meta charset="utf-8">
 	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
 	<script src="../js/vue.js"></script>
-	<title>插槽</title>
+	<title>vue动画</title>
+	<style type="text/css">
+		.fade-enter-active, .fade-leave-active {
+		  transition: opacity .5s;
+		}
+		.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+		  opacity: 0;
+		}
+	</style>
 </head>
 <body>
-	<div id="app">
-		<component :is="type"></component><!--动态组件-->
-	<!--
-		<child-one v-if="type ==='child-one'"></child-one>
-		<child-two v-if="type ==='child-two'"></child-two>
-	-->
-		<button @click="handleBtnClick">change</button>
+	<div id="demo">
+	  <button v-on:click="show = !show">
+	    Toggle
+	  </button>
+	  <transition name="fade">
+	    <p v-if="show">hello</p>
+	  </transition>
 	</div>
 
 </body>
 </html>
 <script type="text/javascript">
-	Vue.component('child-one',{
-		template: `
-				<div v-once>
-					child-one
-				</div>
-		`,	
-	})
-	Vue.component('child-two',{
-		template: `
-				<div v-once>
-					child-two
-				</div>
-		`,	
-	})
-	var vm = new Vue({
-		el: "#app",
-		data: {
-			type: 'child-one'
-		},
-		methods: {
-			handleBtnClick: function () {
-				this.type = this.type === 'child-one' ? 'child-two' : 'child-one';																								
-			}
-		}
+	new Vue({
+	  el: '#demo',
+	  data: {
+	    show: true
+	  }
 	})
 </script>
