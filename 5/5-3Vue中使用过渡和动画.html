@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="../js/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="../js/animate.css">
+	<title>vue动画</title>
+	<style type="text/css">
+		.fade-enter,.fade-leave-to{
+			opacity: 0;
+		}
+		.fade-enter-active,.fade-leave-active{
+			transition: opacity 3s;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!--使用animate.css  type="transition"确定动画时长以transition动画时长为准，:duration自定义动画时长-->
+		<transition 
+			type="transition"
+			:duration="{enter: 5000, leave: 1000}"
+			name="fade" 
+			appear
+			enter-active-class="animated swing fade-enter-active" 
+			leave-active-class="animated shake fade-leave-active"
+			appear-active-class="animated swing"
+		>
+			<div v-if="aloe">hello</div>
+		</transition>
+		<button @click="handleClick2">切换</button>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			show: true,
+			aloe:true
+		},
+		methods: {
+			handleClick: function () {
+				this.show = !this.show
+			},
+			handleClick2: function () {
+				this.aloe = !this.aloe
+			},
+		}
+	})
+</script>

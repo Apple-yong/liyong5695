@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="../js/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="../js/animate.css">
+	<title>5-4Vue中JS动画与Velocity.js结合</title>
+	<style type="text/css">
+		.rect {
+		    width: 50px;
+		    height: 50px;
+		    background: #4dd0e1;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+    <transition
+        name="showRect"
+        @before-enter="handleBeforeEnter"
+        @enter="handleEnter"
+        @after-enter="handleAfterEnter"
+        @before-leave="handleBeforeLeave"
+        @leave="handleLeave"
+        @after-leave="handleAfterLeave"
+        :css="false"
+    >
+        <div class="rect" v-show="show"></div>
+    </transition>
+    <button @click="handleClick">切换显示方块</button>
+</div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
+<script src="http://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+    el: '#app',
+    data: {
+        // show状态决定方块是显示还是隐藏
+        show: false
+    },
+    methods: {
+        handleClick: function () {
+            this.show = !this.show;
+        },
+
+         // 在元素即将显示时
+        handleBeforeEnter: function (el) {
+            el.style.opacity = 0;
+            console.log('方块显示动画即将执行');
+        },
+        // 在 beforeEnter 之后，元素运行进场动画时
+        handleEnter: function (el, done) {
+            Velocity(el, 'stop');
+            Velocity(el, {
+                backgroundColor: '#0085eb',
+                opacity: 1,
+                translateX: 260,
+                rotateZ: ['360deg', 0]
+            }, {
+                duration: 1000,
+                easing: [ 0.4, 0.01, 0.165, 0.99 ],
+                complete: done
+            });
+            console.log('方块显示动画执行中...');
+        },
+        // 元素进场动画 enter 结束时
+        handleAfterEnter: function (el) {
+            console.log('方块显示动画结束');
+        },
+        // 元素即将隐藏时
+        handleBeforeLeave: function (el) {
+            console.log('方块隐藏动画即将执行');
+        },
+        // 在 beforeLeave 之后，元素运行离场动画时
+        handleLeave: function (el, done) {
+            Velocity(el, 'stop');
+            Velocity(el, {
+                backgroundColor: '#4dd0e1',
+                opacity: 0,
+                translateX: 0,
+                rotateZ: [0, '360deg']
+            }, {
+                duration: 1000,
+                easing: [ 0.4, 0.01, 0.165, 0.99 ],
+                complete: done
+            });
+            console.log('方块隐藏动画执行中...');
+        },
+        // 元素离场动画 leave 结束时
+        handleAfterLeave: function (el) {
+            console.log('方块隐藏动画结束');
+        }
+    }
+});
+</script>

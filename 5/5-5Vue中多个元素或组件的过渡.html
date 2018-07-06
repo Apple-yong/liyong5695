@@ -4,36 +4,44 @@
 	<meta charset="utf-8">
 	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
 	<script src="../js/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="../js/animate.css">
 	<title>vue动画</title>
 	<style type="text/css">
 		.v-enter,.v-leave-to{
 			opacity: 0;
 		}
 		.v-enter-active,.v-leave-active{
-			transition: opacity 3s;
+			transition: opacity 1s;
 		}
 	</style>
 </head>
 <body>
 	<div id="app">
-		<transition><!--动画要包裹这个标签,如果有多个，可以用name=fade区分，css中.fade-enter{}定义-->
-			<div v-if="show">hello</div>
+		<transition mode="out-in"><!--out-in先隐藏再显示  in-out显示再隐藏-->
+			<component :is="type"></component>
 		</transition>
-		<button @click="handleClick">切换</button>
+		<button @click="handleClick">toggle</button>
 	</div>
 
 </body>
 </html>
 <script type="text/javascript">
+	Vue.component('child',{
+		template: '<div>child</div>'
+	})
+	Vue.component('child-one',{
+		template: '<div>child-one</div>'
+	})
+
 	var vm = new Vue({
 		el: "#app",
 		data: {
-			show: true
+			type: 'child'
 		},
 		methods: {
 			handleClick: function () {
-				this.show = !this.show
-			}
+				this.type = this.type === 'child' ? 'child-one' : 'child'
+			},
 		}
 	})
 </script>

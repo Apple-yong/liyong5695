@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="../js/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="../js/animate.css">
+	<title>vue动画</title>
+	<style type="text/css">
+		@keyframes bounce-in{
+			0% {
+				transform: scale(0);
+			}
+			50% {
+				transform: scale(1.5);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+		.fade-enter-active{
+			transform-origin: left center;
+			animation: bounce-in 1s;
+		}
+		.fade-leave-active{
+			transform-origin: left center;
+			animation: bounce-in 1s reverse;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<transition name="fade"><!--动画要包裹这个标签,如果有多个，可以用name=fade区分，css中.fade-enter{}定义-->
+			<div v-if="show">hello</div>
+		</transition>
+		<button @click="handleClick">切换</button>
+
+		<!--使用animate.css-->
+		<transition 
+			name="fade" 
+			enter-active-class="animated swing" 
+			leave-active-class="animated shake"
+		>
+			<div v-if="aloe">hello</div>
+		</transition>
+		<button @click="handleClick2">切换</button>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			show: true,
+			aloe:true
+		},
+		methods: {
+			handleClick: function () {
+				this.show = !this.show
+			},
+			handleClick2: function () {
+				this.aloe = !this.aloe
+			},
+		}
+	})
+</script>
