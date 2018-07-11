@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="../js/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="../js/animate.css">
+	<title>vue动画封装</title>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div id="app">
+		<fade :show="show">
+			<div>hello world</div>
+		</fade>
+		<button @click="handleClick">切换</button>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	Vue.component('fade',{
+		
+	})
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			show: true
+		},
+		methods: {
+			handleClick: function () {
+				this.show = !this.show
+			},
+		}
+	})
+</script>
